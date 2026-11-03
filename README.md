@@ -1,92 +1,39 @@
-# AENTECH — Assistência Técnica de Celulares e Tablets
+# FazHoje — Inovação e Soluções Tecnológicas | AENTECH
 
-Aplicação web estática em **HTML5**, **CSS3** e **JavaScript**, totalmente otimizada para o **GitHub Pages**, vinculada ao domínio próprio **fazhoje.com** (Squarespace), com **SEO avançado para motores de busca** e **Open Graph completo para compartilhamento em redes sociais e WhatsApp**.
-
----
-
-## 🚀 Tecnologias & Características
-
-- **100% Estático:** Apenas HTML5, CSS3 e JavaScript puro (sem necessidade de backend, Python ou hospedagem paga).
-- **Hospedagem Gratuita:** GitHub Pages com alta disponibilidade, CDN mundial e certificado SSL/HTTPS automático.
-- **SEO & Busca Local (Ourinhos - SP):**
-  - Meta tags completas (`description`, `keywords`, `robots`, `canonical`).
-  - Geotagging para Ourinhos - SP (`geo.region`, `geo.placename`, `geo.position`, `ICBM`).
-  - Schema.org (JSON-LD) com dados estruturados de `LocalBusiness` e `FAQPage` para indexação rica no Google.
-  - Arquivos `robots.txt` e `sitemap.xml` prontos para o Google Search Console e Bing Webmaster.
-- **Open Graph (WhatsApp, Facebook, LinkedIn, Twitter/X):**
-  - URLs absolutas em HTTPS com imagem (`static/og-brand.png`) dimensionada em 1200x630 (abaixo de 300KB, formato ideal para WhatsApp).
-  - Twitter Card configurado com `summary_large_image`.
-- **PWA & Ícones:**
-  - `site.webmanifest` integrado com ícones para Android e iOS (`apple-touch-icon`).
-  - Favicon em múltiplos tamanhos (16x16, 32x32, 192x192, 512x512).
-- **Página de Erro 404:**
-  - `404.html` personalizada para links quebrados com redirecionamento para o início e WhatsApp.
+Aplicação web estática em **HTML5**, **Tailwind CSS**, **Bootstrap 5** e **JavaScript**, totalmente otimizada para o **GitHub Pages**, vinculada ao domínio próprio **fazhoje.com**, com **SEO avançado para motores de busca**, **Google Analytics (GA4)** e **Open Graph completo para redes sociais e WhatsApp**.
 
 ---
 
-## 🌐 Configuração do Domínio do Squarespace no GitHub Pages
+## 🚀 Estrutura do Projeto & Subdomínio AENTECH
 
-Para conectar o domínio **fazhoje.com** ao GitHub Pages:
-
-### 1. No painel do Squarespace (DNS)
-
-Acesse: **Squarespace** > **Domínios** > **fazhoje.com** > **Configurações de DNS** (ou DNS Settings).
-
-Adicione os seguintes registros:
-
-#### A) Registros `A` (para o domínio raiz `fazhoje.com`):
-Crie 4 registros do tipo **A**:
-| Tipo | Host / Nome | Aponta para (IP) |
-| :--- | :--- | :--- |
-| **A** | `@` | `185.199.108.153` |
-| **A** | `@` | `185.199.109.153` |
-| **A** | `@` | `185.199.110.153` |
-| **A** | `@` | `185.199.111.153` |
-
-#### B) Registro `CNAME` (para o subdomínio `www`):
-| Tipo | Host / Nome | Aponta para |
-| :--- | :--- | :--- |
-| **CNAME** | `www` | `ajpneto.github.io.` |
+- **Landing Page Principal (`/`):**
+  - Hospedada em `https://fazhoje.com/`.
+  - Seção Hero de impacto destacando inovação e soluções práticas.
+  - Card dedicado da **AENTECH** com imagem consistente de assistência técnica, descrição dos serviços e link para o subdomínio `/aentech/`.
+  - Seção de Contato integrada via Formspree com rastreamento no Google Analytics e botões diretos de e-mail e WhatsApp.
+- **Assistência Técnica AENTECH (`/aentech/`):**
+  - Subdomínio/caminho dedicado em `https://fazhoje.com/aentech/`.
+  - Página completa de assistência técnica de celulares e tablets em Ourinhos - SP.
+  - Barra de navegação com link direto de retorno para `FazHoje.com`.
+  - Diagnóstico em 1h, tabela de serviços, depoimentos e botão WhatsApp de orçamento rápido.
+- **Redirecionamento SEO (`/aentec/`):**
+  - Mantido redirecionamento 301/meta-refresh para manter compatibilidade e não quebrar links antigos ou indexações prévias.
 
 ---
 
-### 2. No repositório GitHub
+## 🌐 Tecnologias & SEO
 
-1. Acesse o repositório no GitHub: [https://github.com/ajpneto/aen](https://github.com/ajpneto/aen)
-2. Clique em **Settings** (Configurações) > **Pages** (no menu lateral).
-3. Na seção **Build and deployment**:
-   - **Source:** Escolha `Deploy from a branch`.
-   - **Branch:** `main` | pasta: `/ (root)` > clique em **Save**.
-   *(O repositório também inclui `.github/workflows/pages.yml` se preferir a opção GitHub Actions).*
-4. Em **Custom domain**:
-   - Confirme `fazhoje.com` e clique em **Save** (o arquivo `CNAME` na raiz do projeto já define essa configuração).
-5. Após o DNS propagar, marque a opção **Enforce HTTPS** para ativar o certificado SSL gratuito.
-
----
-
-## 📱 Dica para Prévia no WhatsApp
-
-O WhatsApp armazena em cache o link ao ser enviado pela primeira vez. Se você testar e não carregar a imagem imediatamente:
-
-1. Acesse o [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) (ferramenta oficial do mesmo motor do WhatsApp).
-2. Insira `https://fazhoje.com` e clique em **Scrape Again** para limpar o cache.
-3. No WhatsApp, você também pode compartilhar com um parâmetro para forçar atualização instantânea: `https://fazhoje.com/?v=1`.
-
----
-
-## 💻 Teste Local Simples
-
-Para testar no seu computador com qualquer servidor local:
-
-```bash
-# Com Python (já nativo no sistema):
-python3 -m http.server 8000
-
-# Ou usando Node.js (npx serve):
-npx serve
-```
-
-Abra no navegador em: `http://localhost:8000`
+- **Google Analytics 4 (GA4):**
+  - Tag `G-NCGCXV54CT` configurada em todas as páginas (`index.html`, `aentech/index.html`, `404.html`).
+  - Eventos personalizados de conversão disparados em cliques no WhatsApp, chamadas telefônicas e envio de formulário de contato.
+- **SEO & Dados Estruturados (Schema.org JSON-LD):**
+  - Schema `WebSite` na página principal e `LocalBusiness` + `FAQPage` na página AENTECH.
+  - `sitemap.xml` atualizado com as URLs canônicas `https://fazhoje.com/` e `https://fazhoje.com/aentech/`.
+  - `robots.txt` permitindo indexação total e apontando para o sitemap.
+- **Open Graph & Twitter Cards:**
+  - Imagem consistente em alta resolução (`static/aentech-card.jpg`) configurada para cards e compartilhamento no WhatsApp, Facebook e Twitter.
+- **PWA & Webmanifests:**
+  - `site.webmanifest` na raiz e `aentech/site.webmanifest` no subdomínio.
 
 ---
 
@@ -96,25 +43,30 @@ Abra no navegador em: `http://localhost:8000`
 ├── .github/
 │   └── workflows/
 │       └── pages.yml       # Deploy automatizado no GitHub Pages
+├── aentech/
+│   ├── index.html          # Subdomínio da assistência técnica AENTECH (com link para FazHoje)
+│   └── site.webmanifest    # Manifest PWA da AENTECH
+├── aentec/
+│   └── index.html          # Redirecionamento amigável para /aentech/
 ├── static/
 │   ├── css/
 │   │   └── style.css       # Estilos CSS
 │   ├── js/
-│   │   └── main.js        # Scripts JS (scroll, animações)
+│   │   └── main.js        # Scripts JS e eventos GA4
+│   ├── aentech-card.jpg    # Imagem consistente de assistência técnica de celulares
+│   ├── og-brand.png        # Imagem institucional de marca
 │   ├── favicon.ico
 │   ├── favicon-16x16.png
 │   ├── favicon-32x32.png
 │   ├── apple-touch-icon.png
 │   ├── android-chrome-192x192.png
-│   ├── android-chrome-512x512.png
-│   └── og-brand.png        # Imagem para OpenGraph / WhatsApp (1200x630)
-├── .gitignore
-├── .nojekyll               # Desativa processamento Jekyll no GitHub Pages
-├── 404.html                # Página de erro 404 estilizada
+│   └── android-chrome-512x512.png
+├── 404.html                # Página de erro 404 personalizada
 ├── CNAME                   # Domínio próprio (fazhoje.com)
-├── index.html              # Página principal (HTML5 + Schema.org + OpenGraph)
+├── index.html              # Landing page principal (Hero + Card AENTECH + Contato)
+├── modern.html             # Versão espelho da landing page
 ├── README.md               # Documentação do projeto
-├── robots.txt              # Regras para bots e indexadores
-├── site.webmanifest        # PWA e ícones mobile
-└── sitemap.xml             # Sitemap XML para motores de busca
+├── robots.txt              # Regras para motores de busca
+├── site.webmanifest        # Manifest PWA do FazHoje
+└── sitemap.xml             # Sitemap XML atualizado
 ```
