@@ -347,6 +347,25 @@
         }
 
         /* ================= IMPRESSÃO ================= */
+
+        /* Login overlay */
+        .login-overlay {
+            position: fixed; inset: 0; background: rgba(15,23,42,0.75);
+            display: none; align-items: center; justify-content: center;
+            z-index: 3000; padding: 1rem;
+        }
+        .login-overlay.active { display: flex; }
+        .login-card { width:100%; max-width:420px; background:#fff; border-radius:12px; box-shadow:0 20px 50px rgba(0,0,0,.25); overflow:hidden; font-family: Arial, sans-serif; }
+        .login-header { background:#1e293b; color:#fff; padding:1rem 1.25rem; }
+        .login-body { padding:1.25rem; }
+        .login-body label { display:block; font-weight:bold; margin-bottom:4px; font-size:12px; }
+        .login-body input { width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; margin-bottom:10px; font-size:13px; }
+        .login-body .btn-login { width:100%; background:#16a34a; color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer; }
+        .login-body .btn-login:disabled { opacity:.7; cursor:default; }
+        .login-error { display:none; background:#fee2e2; color:#991b1b; border:1px solid #fecaca; padding:8px 10px; border-radius:6px; margin-bottom:10px; font-size:12px; }
+        .app-locked { filter: blur(1px); pointer-events:none; user-select:none; }
+        .auth-badge { font-size:11px; padding:4px 8px; border-radius:999px; border:1px solid #334155; color:#334155; background:#f8fafc; }
+
         @media print {
             body {
                 background-color: #fff !important;
@@ -393,6 +412,9 @@
             <a href="consultar-os.html" class="btn btn-outline" target="_blank" title="Página pública de consulta">
                 <i class="fas fa-search"></i> Consultar OS
             </a>
+            <span id="authBadge" class="auth-badge" style="display:none;"></span>
+            <button type="button" class="btn btn-outline" id="btnLogout" style="display:none;" title="Sair"><i class="fas fa-right-from-bracket"></i></button>
+            <button type="button" class="btn btn-outline" id="btnLoginOpen" title="Entrar"><i class="fas fa-lock"></i> Entrar</button>
         </div>
 
         <div class="btn-group">
@@ -422,6 +444,31 @@
 
     <!-- MENSAGEM TOAST FEEDBACK -->
     <div id="toast" class="toast-msg no-print"></div>
+
+
+    <!-- LOGIN OVERLAY -->
+    <div id="loginOverlay" class="login-overlay no-print" aria-hidden="true">
+        <div class="login-card">
+            <div class="login-header" style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                    <h3 style="margin:0 0 4px; font-size:16px;"><i class="fas fa-lock" style="color:#f87171;"></i> Acesso Restrito</h3>
+                    <div style="font-size:12px; color:#cbd5e1;">Entre para criar ou editar Ordens de Serviço.</div>
+                </div>
+                <button type="button" id="btnFecharLogin" style="background:none; border:none; color:#cbd5e1; font-size:22px; line-height:1; cursor:pointer;" title="Fechar">&times;</button>
+            </div>
+            <div class="login-body">
+                <form id="loginForm">
+                    <label for="loginUsername">Usuário</label>
+                    <input type="text" id="loginUsername" autocomplete="username" required>
+                    <label for="loginSenha">Senha</label>
+                    <input type="password" id="loginSenha" autocomplete="current-password" required>
+                    <div id="loginErro" class="login-error"></div>
+                    <button type="submit" class="btn-login" id="btnLogin"><i class="fas fa-right-to-bracket"></i> Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="appShell">
 
     <!-- FORMULÁRIO OFICIAL DA ORDEM DE SERVIÇO -->
     <form class="os-container" id="formOS" onsubmit="return false;">
@@ -607,6 +654,7 @@
             <div class="signature-line">Ass. Cliente</div>
         </div>
     </form>
+    </div><!-- /appShell -->
 
     <script>
         // Determina a URL base da API
@@ -614,12 +662,63 @@
             const saved = localStorage.getItem('AENTECH_API_URL');
             if (saved) return saved.replace(/\/+$/, '');
             const host = window.location.hostname;
-            if (host === 'localhost' || host === '127.0.0.1') {
+            if (!host || host === 'localhost' || host === '127.0.0.1') {
                 return window.location.port === '5000' ? '' : 'http://localhost:5000';
             }
             return 'https://aen.pythonanywhere.com';
         }
         const API_URL = getApiUrl();
+
+        // ===== AUTENTICAÇÃO =====
+        function getAuthToken() { return localStorage.getItem('AENTECH_AUTH_TOKEN') || ''; }
+        function getAuthUser() { return localStorage.getItem('AENTECH_AUTH_USER') || ''; }
+        function setAuthToken(token, username) {
+            if (token) localStorage.setItem('AENTECH_AUTH_TOKEN', token);
+            else localStorage.removeItem('AENTECH_AUTH_TOKEN');
+            if (username) localStorage.setItem('AENTECH_AUTH_USER', username);
+            else localStorage.removeItem('AENTECH_AUTH_USER');
+            updateAuthUI();
+        }
+        function authHeaders(extra = {}) {
+            const h = { ...extra }; const t = getAuthToken();
+            if (t) h['Authorization'] = `Bearer ${t}`;
+            return h;
+        }
+        async function authFetch(url, options = {}) {
+            const opts = { ...options, headers: authHeaders(options.headers || {}) };
+            const res = await fetch(url, opts);
+            if (res.status === 401) { setAuthToken('', ''); showLogin('Sessão expirada ou inválida. Faça login novamente.'); }
+            return res;
+        }
+        function showLogin(msg = '') {
+            document.getElementById('loginOverlay').classList.add('active');
+            document.getElementById('appShell').classList.add('app-locked');
+            const el = document.getElementById('loginErro');
+            if (msg) { el.textContent = msg; el.style.display = 'block'; } else { el.style.display = 'none'; }
+        }
+        function hideLogin() {
+            document.getElementById('loginOverlay').classList.remove('active');
+            document.getElementById('appShell').classList.remove('app-locked');
+            document.getElementById('loginErro').style.display = 'none';
+        }
+        function updateAuthUI() {
+            const user = getAuthUser();
+            document.getElementById('authBadge').style.display = user ? 'inline-block' : 'none';
+            document.getElementById('authBadge').textContent = user ? `@${user}` : '';
+            document.getElementById('btnLogout').style.display = user ? 'inline-flex' : 'none';
+            document.getElementById('btnLoginOpen').style.display = user ? 'none' : 'inline-flex';
+        }
+        async function fazerLogin(username, senha) {
+            const res = await fetch(`${API_URL}/api/login`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, senha })
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok || !data.ok) throw new Error(data.erro || 'Falha no login.');
+            setAuthToken(data.token, data.usuario?.username || username);
+            return data;
+        }
+
 
         // Elementos DOM
         const formOS = document.getElementById('formOS');
@@ -795,11 +894,13 @@
                 const url = idAtual ? `${API_URL}/api/os/${idAtual}` : `${API_URL}/api/os`;
                 const metodo = idAtual ? 'PUT' : 'POST';
 
-                const resp = await fetch(url, {
+                if (!getAuthToken()) { showLogin('Faça login para salvar a Ordem de Serviço.'); return; }
+                const resp = await authFetch(url, {
                     method: metodo,
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dados)
                 });
+                if (resp.status === 401) return;
 
                 const json = await resp.json();
 
@@ -849,37 +950,64 @@
             const num = params.get('os');
             const autoPrint = params.get('print');
 
-            if (id) {
+            if (id || num) {
                 try {
-                    const resp = await fetch(`${API_URL}/api/os/${id}`);
-                    const json = await resp.json();
-                    if (json.ok && json.ordem) {
+                    let json = null;
+                    // Tenta com autenticação (dados completos para edição)
+                    if (getAuthToken()) {
+                        const urlAuth = id ? `${API_URL}/api/os/${id}` : `${API_URL}/api/os/numero/${encodeURIComponent(num)}`;
+                        const resp = await authFetch(urlAuth);
+                        if (resp.ok) json = await resp.json();
+                    }
+                    // Fallback público (dados limitados para visualização/impressão)
+                    if (!json || !json.ok || !json.ordem) {
+                        const urlPub = id ? `${API_URL}/api/consulta?id=${encodeURIComponent(id)}` : `${API_URL}/api/consulta?termo=${encodeURIComponent(num)}`;
+                        const resp2 = await fetch(urlPub);
+                        json = await resp2.json().catch(() => null);
+                    }
+                    if (json && json.ok && json.ordem) {
                         popularFormulario(json.ordem);
                         if (autoPrint === 'true' || autoPrint === '1') {
                             setTimeout(() => window.print(), 500);
                         }
                     }
                 } catch (e) {
-                    console.error('Falha ao carregar OS por ID:', e);
-                }
-            } else if (num) {
-                try {
-                    const resp = await fetch(`${API_URL}/api/os/numero/${num}`);
-                    const json = await resp.json();
-                    if (json.ok && json.ordem) {
-                        popularFormulario(json.ordem);
-                        if (autoPrint === 'true' || autoPrint === '1') {
-                            setTimeout(() => window.print(), 500);
-                        }
-                    }
-                } catch (e) {
-                    console.error('Falha ao carregar OS por número:', e);
+                    console.error('Falha ao carregar OS:', e);
                 }
             } else {
                 definirDataHoje();
                 atualizarBadgeStatus('Pendente');
             }
         }
+
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnLogin');
+            const err = document.getElementById('loginErro');
+            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+            err.style.display = 'none';
+            try {
+                await fazerLogin(document.getElementById('loginUsername').value.trim(), document.getElementById('loginSenha').value);
+                document.getElementById('loginSenha').value = '';
+                hideLogin();
+                showToast('Login realizado com sucesso.', true);
+            } catch (ex) {
+                err.textContent = ex.message || 'Erro no login.'; err.style.display = 'block';
+            } finally {
+                btn.disabled = false; btn.innerHTML = '<i class="fas fa-right-to-bracket"></i> Entrar';
+            }
+        });
+        document.getElementById('btnLogout').addEventListener('click', async () => {
+            try { await fetch(`${API_URL}/api/logout`, { method: 'POST' }); } catch {}
+            setAuthToken('', ''); showToast('Sessão encerrada.', true);
+        });
+        document.getElementById('btnLoginOpen').addEventListener('click', () => showLogin());
+        document.getElementById('btnFecharLogin')?.addEventListener('click', hideLogin);
+        document.getElementById('loginOverlay')?.addEventListener('click', (e) => {
+            if (e.target.id === 'loginOverlay') hideLogin();
+        });
+        updateAuthUI();
 
         window.addEventListener('DOMContentLoaded', carregarOSPorUrl);
     </script>

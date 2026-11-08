@@ -95,10 +95,73 @@
             right: 20px;
             z-index: 1090;
         }
+
+        /* Login overlay */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.75);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+        .login-overlay.active { display: flex; }
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+        .login-header {
+            background: #212529;
+            color: #fff;
+            padding: 1rem 1.25rem;
+        }
+        .login-body { padding: 1.25rem; }
+        .app-locked { filter: blur(1px); pointer-events: none; user-select: none; }
+        .modal { z-index: 2050 !important; }
+        .modal-backdrop { z-index: 2040 !important; }
     </style>
 </head>
 <body>
 
+    <!-- LOGIN OVERLAY -->
+    <div id="loginOverlay" class="login-overlay" aria-hidden="true">
+        <div class="login-card">
+            <div class="login-header">
+                <h5 class="mb-1"><i class="fas fa-lock me-2 text-danger"></i>Acesso Restrito</h5>
+                <div class="small text-white-50">Entre com suas credenciais para acessar o painel administrativo.</div>
+            </div>
+            <div class="login-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginUsername" class="form-label small fw-semibold">Usuário</label>
+                        <input type="text" class="form-control" id="loginUsername" autocomplete="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginSenha" class="form-label small fw-semibold">Senha</label>
+                        <input type="password" class="form-control" id="loginSenha" autocomplete="current-password" required>
+                    </div>
+                    <div id="loginErro" class="alert alert-danger py-2 small d-none mb-3"></div>
+                    <button type="submit" class="btn btn-danger w-100 fw-semibold" id="btnLogin">
+                        <i class="fas fa-right-to-bracket me-1"></i> Entrar
+                    </button>
+                </form>
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+                    <span class="small text-muted">Acesso restrito</span>
+                    <button type="button" class="btn btn-sm btn-link text-decoration-none text-secondary p-0" id="btnLoginConfigApi" title="Configurar URL da API">
+                        <i class="fas fa-gear me-1"></i>Servidor API
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="appShell">
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <div class="container-fluid px-4">
@@ -118,6 +181,9 @@
                         </span>
                     </li>
                     <li class="nav-item">
+                        <span id="usuarioBadge" class="badge bg-light text-dark border px-2 py-1 d-none" style="font-size: 0.75rem;"></span>
+                    </li>
+                    <li class="nav-item">
                         <a href="ordem-de-servico.html" class="btn btn-danger btn-sm text-white fw-bold">
                             <i class="fas fa-plus-circle me-1"></i> Nova OS
                         </a>
@@ -130,6 +196,11 @@
                     <li class="nav-item">
                         <button class="btn btn-outline-secondary btn-sm text-light" data-bs-toggle="modal" data-bs-target="#modalConfig" title="Configurações da API">
                             <i class="fas fa-gear"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-warning btn-sm" id="btnLogout" title="Sair">
+                            <i class="fas fa-right-from-bracket"></i>
                         </button>
                     </li>
                 </ul>
@@ -351,6 +422,8 @@
         </div>
     </div>
 
+    </div><!-- /appShell -->
+
     <!-- MODAL: CONFIGURAÇÃO DA API -->
     <div class="modal fade" id="modalConfig" tabindex="-1" aria-labelledby="modalConfigLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -404,7 +477,7 @@
             const saved = localStorage.getItem('AENTECH_API_URL');
             if (saved) return saved.replace(/\/+$/, '');
             const host = window.location.hostname;
-            if (host === 'localhost' || host === '127.0.0.1') {
+            if (!host || host === 'localhost' || host === '127.0.0.1') {
                 return window.location.port === '5000' ? '' : 'http://localhost:5000';
             }
             return 'https://aen.pythonanywhere.com';
@@ -412,6 +485,82 @@
 
         let API_URL = getApiUrl();
         let listaCompletaOS = [];
+
+        // ===== AUTENTICAÇÃO =====
+        function getAuthToken() {
+            return localStorage.getItem('AENTECH_AUTH_TOKEN') || '';
+        }
+        function setAuthToken(token, username) {
+            if (token) localStorage.setItem('AENTECH_AUTH_TOKEN', token);
+            else localStorage.removeItem('AENTECH_AUTH_TOKEN');
+            if (username) localStorage.setItem('AENTECH_AUTH_USER', username);
+            else localStorage.removeItem('AENTECH_AUTH_USER');
+        }
+        function getAuthUser() {
+            return localStorage.getItem('AENTECH_AUTH_USER') || '';
+        }
+        function authHeaders(extra = {}) {
+            const headers = { ...extra };
+            const token = getAuthToken();
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+            return headers;
+        }
+        async function authFetch(url, options = {}) {
+            const opts = { ...options };
+            opts.headers = authHeaders(options.headers || {});
+            const res = await fetch(url, opts);
+            if (res.status === 401) {
+                setAuthToken('', '');
+                showLogin('Sessão expirada ou inválida. Faça login novamente.');
+            }
+            return res;
+        }
+        function showLogin(message = '') {
+            const overlay = document.getElementById('loginOverlay');
+            const shell = document.getElementById('appShell');
+            overlay.classList.add('active');
+            shell.classList.add('app-locked');
+            const err = document.getElementById('loginErro');
+            if (message) {
+                err.textContent = message;
+                err.classList.remove('d-none');
+            } else {
+                err.classList.add('d-none');
+                err.textContent = '';
+            }
+            updateAuthUI();
+        }
+        function hideLogin() {
+            document.getElementById('loginOverlay').classList.remove('active');
+            document.getElementById('appShell').classList.remove('app-locked');
+            document.getElementById('loginErro').classList.add('d-none');
+            updateAuthUI();
+        }
+        function updateAuthUI() {
+            const user = getAuthUser();
+            const badge = document.getElementById('usuarioBadge');
+            if (user) {
+                badge.textContent = `@${user}`;
+                badge.classList.remove('d-none');
+            } else {
+                badge.classList.add('d-none');
+                badge.textContent = '';
+            }
+        }
+
+        async function fazerLogin(username, senha) {
+            const res = await fetch(`${API_URL}/api/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, senha })
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok || !data.ok) {
+                throw new Error(data.erro || 'Falha no login.');
+            }
+            setAuthToken(data.token, data.usuario?.username || username);
+            return data;
+        }
 
         // Toast de Feedback
         const toastEl = document.getElementById('liveToast');
@@ -441,9 +590,11 @@
         // Carrega KPIs de estatísticas
         async function carregarStats() {
             try {
-                const res = await fetch(`${API_URL}/api/stats`);
+                const res = await authFetch(`${API_URL}/api/stats`);
+                if (res.status === 401) return;
                 if (!res.ok) throw new Error('Falha ao obter estatísticas');
                 const d = await res.json();
+                if (!d.ok) throw new Error(d.erro || 'Falha ao obter estatísticas');
                 document.getElementById('kpiTotal').textContent = d.total || 0;
                 document.getElementById('kpiDiagnostico').textContent = (d.pendentes || 0) + (d.diagnostico || 0);
                 document.getElementById('kpiAguardando').textContent = d.aguardando_aprovacao || 0;
@@ -466,7 +617,8 @@
             if (busca) url += `busca=${encodeURIComponent(busca)}&`;
 
             try {
-                const res = await fetch(url);
+                const res = await authFetch(url);
+                if (res.status === 401) return;
                 if (!res.ok) throw new Error(`Status ${res.status}`);
                 const data = await res.json();
                 listaCompletaOS = data.ordens || [];
@@ -480,7 +632,7 @@
                     <tr>
                         <td colspan="9" class="text-center py-4 text-danger">
                             <i class="fas fa-circle-exclamation me-1"></i> Não foi possível conectar à API em <code>${API_URL}</code>.<br>
-                            <small class="text-muted">Verifique se o backend Flask está ativo ou altere o endpoint nas Configurações.</small>
+                            <small class="text-muted">Verifique se o backend Flask está ativo, autenticado, ou altere o endpoint nas Configurações.</small>
                         </td>
                     </tr>
                 `;
@@ -600,7 +752,7 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Salvando...';
 
             try {
-                const res = await fetch(`${API_URL}/api/os/${id}`, {
+                const res = await authFetch(`${API_URL}/api/os/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -610,6 +762,7 @@
                         notificar_email: notificar
                     })
                 });
+                if (res.status === 401) return;
 
                 const data = await res.json();
                 if (!res.ok || !data.ok) throw new Error(data.erro || 'Falha ao atualizar OS');
@@ -639,11 +792,12 @@
             }
 
             try {
-                const res = await fetch(`${API_URL}/api/os/${id}/aprovar`, {
+                const res = await authFetch(`${API_URL}/api/os/${id}/aprovar`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({})
                 });
+                if (res.status === 401) return;
 
                 const data = await res.json();
                 if (!res.ok || !data.ok) throw new Error(data.erro || 'Falha ao aprovar orçamento');
@@ -666,7 +820,8 @@
             }
 
             try {
-                const res = await fetch(`${API_URL}/api/os/${id}`, { method: 'DELETE' });
+                const res = await authFetch(`${API_URL}/api/os/${id}`, { method: 'DELETE' });
+                if (res.status === 401) return;
                 const data = await res.json();
                 if (!res.ok || !data.ok) throw new Error(data.erro || 'Falha ao excluir');
                 notify(`OS ${numero} excluída com sucesso.`, 'secondary');
@@ -733,8 +888,50 @@
             }
         });
 
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnLogin');
+            const err = document.getElementById('loginErro');
+            const username = document.getElementById('loginUsername').value.trim();
+            const senha = document.getElementById('loginSenha').value;
+            err.classList.add('d-none');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Entrando...';
+            try {
+                await fazerLogin(username, senha);
+                document.getElementById('loginSenha').value = '';
+                hideLogin();
+                notify('Login realizado com sucesso.', 'success');
+                carregarOrdens();
+                carregarStats();
+            } catch (ex) {
+                err.textContent = ex.message || 'Erro no login.';
+                err.classList.remove('d-none');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-right-to-bracket me-1"></i> Entrar';
+            }
+        });
+
+        document.getElementById('btnLogout').addEventListener('click', async () => {
+            try { await fetch(`${API_URL}/api/logout`, { method: 'POST' }); } catch {}
+            setAuthToken('', '');
+            notify('Sessão encerrada.', 'secondary');
+            showLogin();
+        });
+
+        document.getElementById('btnLoginConfigApi')?.addEventListener('click', () => {
+            new bootstrap.Modal(document.getElementById('modalConfig')).show();
+        });
+
         // Inicialização
         window.addEventListener('DOMContentLoaded', () => {
+            updateAuthUI();
+            if (!getAuthToken()) {
+                showLogin();
+                return;
+            }
             carregarOrdens();
             carregarStats();
         });

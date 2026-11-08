@@ -289,7 +289,7 @@
             const saved = localStorage.getItem('AENTECH_API_URL');
             if (saved) return saved.replace(/\/+$/, '');
             const host = window.location.hostname;
-            if (host === 'localhost' || host === '127.0.0.1') {
+            if (!host || host === 'localhost' || host === '127.0.0.1') {
                 return window.location.port === '5000' ? '' : 'http://localhost:5000';
             }
             return 'https://aen.pythonanywhere.com';
@@ -350,7 +350,7 @@
             }
         }
 
-        // Executa busca da OS
+        // Executa busca da OS (endpoint público de consulta)
         async function buscarOrdem(termo) {
             if (!termo) return;
             ocultarAlerta();
@@ -360,32 +360,13 @@
             btnBuscar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Buscando...';
 
             try {
-                let os = null;
-
-                // Tenta busca direta por número de OS se parecer um código
-                if (termo.toUpperCase().startsWith('OS-')) {
-                    const resp = await fetch(`${API_URL}/api/os/numero/${encodeURIComponent(termo.trim())}`);
-                    if (resp.ok) {
-                        const json = await resp.json();
-                        if (json.ok && json.ordem) os = json.ordem;
-                    }
-                }
-
-                // Se não achou ou não é prefixo OS-, faz busca ampla
-                if (!os) {
-                    const resp = await fetch(`${API_URL}/api/os?busca=${encodeURIComponent(termo.trim())}`);
-                    if (resp.ok) {
-                        const json = await resp.json();
-                        if (json.ok && json.ordens && json.ordens.length > 0) {
-                            os = json.ordens[0];
-                        }
-                    }
-                }
-
-                if (!os) {
-                    mostrarAlerta(`Nenhuma Ordem de Serviço encontrada para "${termo}". Por favor, confira o número ou telefone digitado.`, 'warning');
+                const resp = await fetch(`${API_URL}/api/consulta?termo=${encodeURIComponent(termo.trim())}`);
+                const json = await resp.json().catch(() => ({}));
+                if (!resp.ok || !json.ok || !json.ordem) {
+                    mostrarAlerta(json.erro || `Nenhuma Ordem de Serviço encontrada para "${termo}". Por favor, confira o número ou telefone digitado.`, 'warning');
                     return;
                 }
+                const os = json.ordem;
 
                 // Preenche dados no card
                 document.getElementById('resNumeroOS').textContent = os.os_numero;
