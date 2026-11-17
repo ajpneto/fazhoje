@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCGCXV54CT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NCGCXV54CT');
+    </script>
+
     <title>Ordem de Serviço — AENTECH</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://aen.pythonanywhere.com/static/favicon.ico" type="image/x-icon">
@@ -412,6 +422,9 @@
             <a href="consultar-os.html" class="btn btn-outline" target="_blank" title="Página pública de consulta">
                 <i class="fas fa-search"></i> Consultar OS
             </a>
+            <a href="sobre.html" class="btn btn-outline" target="_blank" title="Página Sobre a Aentech">
+                <i class="fas fa-microscope"></i> Sobre
+            </a>
             <span id="authBadge" class="auth-badge" style="display:none;"></span>
             <button type="button" class="btn btn-outline" id="btnLogout" style="display:none;" title="Sair"><i class="fas fa-right-from-bracket"></i></button>
             <button type="button" class="btn btn-outline" id="btnLoginOpen" title="Entrar"><i class="fas fa-lock"></i> Entrar</button>
@@ -484,9 +497,12 @@
                 <h1>Ordem de Serviço</h1>
             </div>
             <div class="contact-area">
-                <div class="address">
-                    Rua João Rafael, Nº 383<br>
-                    Jardim Industrial, Ourinhos - SP
+                <div class="address" style="font-size: 10px; line-height: 1.25;">
+                    <strong style="color: #0f172a;">70.188.303 ANTENOR JOSE PAULISTA NETO</strong><br>
+                    CNPJ: 70.188.303/0001-65<br>
+                    Rua João Rafael, 381/383<br>
+                    Jardim Industrial, Ourinhos - SP<br>
+                    CEP 19911-291
                 </div>
                 <div class="phone">
                     (41) 98451-2660 🟢
@@ -1011,5 +1027,6 @@
 
         window.addEventListener('DOMContentLoaded', carregarOSPorUrl);
     </script>
+    <script src="../static/js/main.js"></script>
 </body>
 </html>

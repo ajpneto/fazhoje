@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCGCXV54CT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NCGCXV54CT');
+    </script>
+
     <title>Consultar Ordem de Serviço — AENTECH</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://aen.pythonanywhere.com/static/favicon.ico" type="image/x-icon">
@@ -149,6 +159,9 @@
                 <span>AEN<span class="brand-accent">TECH</span></span>
             </a>
             <div class="ms-auto d-flex align-items-center gap-2">
+                <a href="sobre.html" class="btn btn-outline-light btn-sm">
+                    <i class="fas fa-microscope me-1"></i> Sobre
+                </a>
                 <a href="https://wa.me/5541984512660" target="_blank" class="btn btn-outline-success btn-sm text-white border-success">
                     <i class="fab fa-whatsapp me-1 text-success"></i> (41) 98451-2660
                 </a>
@@ -278,8 +291,14 @@
     <footer>
         <div class="container text-center">
             <p class="mb-1 fw-bold text-white">AENTECH — Assistência Técnica Especializada</p>
-            <p class="mb-1">Rua João Rafael, Nº 383 — Jardim Industrial, Ourinhos - SP</p>
-            <p class="mb-0 text-white-50 small">Atendimento de Segunda a Sábado das 09h às 19h | WhatsApp: (41) 98451-2660</p>
+            <p class="mb-1 text-light">Razão Social: <strong>70.188.303 ANTENOR JOSE PAULISTA NETO</strong> • CNPJ: <strong>70.188.303/0001-65</strong></p>
+            <p class="mb-1">Rua João Rafael, 381/383, Jardim Industrial, Ourinhos - SP, CEP 19911-291</p>
+            <p class="mb-2 text-white-50 small">Atendimento de Segunda a Sábado das 09h às 19h | WhatsApp: (41) 98451-2660</p>
+            <div class="small">
+                <a href="index.html" class="text-light text-decoration-none me-3"><i class="fas fa-home me-1"></i>Início</a>
+                <a href="sobre.html" class="text-light text-decoration-none me-3"><i class="fas fa-microscope me-1"></i>Sobre a Aentech</a>
+                <a href="admin.html" class="text-light text-decoration-none"><i class="fas fa-user-lock me-1"></i>Área Técnica</a>
+            </div>
         </div>
     </footer>
 
@@ -420,5 +439,6 @@
             }
         });
     </script>
+    <script src="../static/js/main.js"></script>
 </body>
 </html>

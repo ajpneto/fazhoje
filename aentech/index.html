@@ -83,6 +83,8 @@
           "@id": "https://fazhoje.com/aentech/#localbusiness",
           "name": "AENTECH",
           "alternateName": "AENTECH Assistência Técnica",
+          "legalName": "70.188.303 ANTENOR JOSE PAULISTA NETO",
+          "taxID": "70.188.303/0001-65",
           "url": "https://fazhoje.com/aentech/",
           "logo": "https://fazhoje.com/static/og-brand.png",
           "image": "https://fazhoje.com/static/aentech-card.jpg",
@@ -90,10 +92,28 @@
           "telephone": "+5541984512660",
           "email": "contato@fazhoje.com",
           "priceRange": "$$",
+          "founder": {
+            "@type": "Person",
+            "name": "Antenor Paulista Neto",
+            "jobTitle": "Fundador e Especialista Técnico",
+            "url": "https://fazhoje.com/aentech/sobre.html",
+            "alumniOf": [
+              {
+                "@type": "EducationalOrganization",
+                "name": "Universidade Estadual de Campinas (UNICAMP) - FEEC / Cepetro"
+              },
+              {
+                "@type": "EducationalOrganization",
+                "name": "Universidade Federal do ABC (UFABC)"
+              }
+            ]
+          },
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Rua João Rafael, 381/383, Jardim Industrial",
             "addressLocality": "Ourinhos",
             "addressRegion": "SP",
+            "postalCode": "19911-291",
             "addressCountry": "BR"
           },
           "geo": {
@@ -234,6 +254,8 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
                     <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
                     <li class="nav-item"><a class="nav-link" href="#como-funciona">Como Funciona</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="consultar-os.html">Consultar OS</a></li>
                     <li class="nav-item"><a class="nav-link" href="#depoimentos">Depoimentos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
                     <li class="nav-item ms-lg-2">
@@ -449,39 +471,136 @@
     <section id="como-funciona" class="py-5 bg-brand-light">
         <div class="container">
             <div class="text-center mb-5">
-                <span class="text-brand-accent fw-bold text-uppercase small">Processo Simples</span>
+                <span class="text-brand-accent fw-bold text-uppercase small">
+                    <i class="fas fa-arrows-spin me-1" aria-hidden="true"></i> Passo a Passo Descomplicado
+                </span>
                 <h2 class="fw-bold mt-2">Como Funciona o Atendimento</h2>
-                <p class="text-muted">Em 3 passos simples você tem seu aparelho de volta.</p>
+                <p class="text-muted mb-4">Em 4 passos rápidos e transparentes você tem seu dispositivo consertado e com garantia total.</p>
+
+                <!-- Fluxo Visual Resumido -->
+                <div class="step-flow-pill d-inline-flex flex-wrap align-items-center justify-content-center gap-2 small fw-semibold text-secondary">
+                    <span><i class="fas fa-calendar-check text-success me-1"></i> 1. Você agenda online</span>
+                    <span class="text-brand-accent fw-bold">➔</span>
+                    <span><i class="fas fa-truck-fast text-primary me-1"></i> 2. Nós retiramos o aparelho</span>
+                    <span class="text-brand-accent fw-bold">➔</span>
+                    <span><i class="fas fa-screwdriver-wrench text-warning me-1"></i> 3. Fazemos o orçamento e conserto</span>
+                    <span class="text-brand-accent fw-bold">➔</span>
+                    <span><i class="fas fa-circle-check text-success me-1"></i> 4. Entregamos de volta</span>
+                </div>
             </div>
+
+            <!-- Grid dos 4 Passos -->
             <div class="row g-4 position-relative">
-                <div class="col-md-4">
+                <!-- Passo 1 -->
+                <div class="col-sm-6 col-lg-3">
                     <div class="step-card text-center p-4 h-100 bg-white rounded-3 shadow-sm position-relative">
                         <div class="step-number" aria-hidden="true">01</div>
-                        <div class="icon-circle-lg mb-3 mx-auto">
-                            <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+                        <div class="icon-circle-lg mb-3 mx-auto text-success bg-success bg-opacity-10">
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Ordem de Serviço (OS)</h3>
-                        <p class="text-muted small mb-0">Registramos os dados do cliente, identificação do aparelho (modelo, cor e IMEI) e a descrição detalhada do defeito e das condições físicas do celular.</p>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle mb-2">Etapa 1</span>
+                        <h3 class="h5 fw-bold mb-2">Você Agenda Online</h3>
+                        <p class="text-muted small mb-0">Entre em contato pelo WhatsApp ou nosso site, informe o modelo do seu celular ou tablet e relate o problema para agendarmos o atendimento com prioridade.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+
+                <!-- Passo 2 -->
+                <div class="col-sm-6 col-lg-3">
                     <div class="step-card text-center p-4 h-100 bg-white rounded-3 shadow-sm position-relative">
                         <div class="step-number" aria-hidden="true">02</div>
-                        <div class="icon-circle-lg mb-3 mx-auto">
-                            <i class="fas fa-magnifying-glass-chart" aria-hidden="true"></i>
+                        <div class="icon-circle-lg mb-3 mx-auto text-primary bg-primary bg-opacity-10">
+                            <i class="fas fa-truck-fast" aria-hidden="true"></i>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Orçamento e Diagnóstico</h3>
-                        <p class="text-muted small mb-0">O técnico testa os componentes e define o valor do conserto e o prazo de entrega antes de iniciar o reparo. Sem surpresas!</p>
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle mb-2">Etapa 2</span>
+                        <h3 class="h5 fw-bold mb-2">Nós Retiramos o Aparelho</h3>
+                        <p class="text-muted small mb-0">Retiramos seu dispositivo no seu endereço com total comodidade e segurança ou você pode entregá-lo diretamente em nossa bancada em Ourinhos - SP.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+
+                <!-- Passo 3 -->
+                <div class="col-sm-6 col-lg-3">
                     <div class="step-card text-center p-4 h-100 bg-white rounded-3 shadow-sm position-relative">
                         <div class="step-number" aria-hidden="true">03</div>
-                        <div class="icon-circle-lg mb-3 mx-auto">
+                        <div class="icon-circle-lg mb-3 mx-auto text-warning bg-warning bg-opacity-10">
+                            <i class="fas fa-screwdriver-wrench" aria-hidden="true"></i>
+                        </div>
+                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle mb-2">Etapa 3</span>
+                        <h3 class="h5 fw-bold mb-2">Fazemos o Orçamento e Conserto</h3>
+                        <p class="text-muted small mb-0">Realizamos a análise técnica minuciosa com diagnóstico transparente. Após sua aprovação, o reparo é feito com peças de alta qualidade e rigor científico.</p>
+                    </div>
+                </div>
+
+                <!-- Passo 4 -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="step-card text-center p-4 h-100 bg-white rounded-3 shadow-sm position-relative">
+                        <div class="step-number" aria-hidden="true">04</div>
+                        <div class="icon-circle-lg mb-3 mx-auto text-success bg-success bg-opacity-10">
                             <i class="fas fa-circle-check" aria-hidden="true"></i>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Execução e Garantia</h3>
-                        <p class="text-muted small mb-0">Após a aprovação, realizamos a troca de peças ou o reparo na placa e entregamos o aparelho com garantia por escrito pelo serviço prestado.</p>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle mb-2">Etapa 4</span>
+                        <h3 class="h5 fw-bold mb-2">Entregamos de Volta</h3>
+                        <p class="text-muted small mb-0">Seu aparelho é 100% testado, revisado e entregue de volta pronto para o uso, com garantia formal de 90 dias por escrito.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Ação -->
+            <div class="text-center mt-5">
+                <a href="https://wa.me/5541984512660?text=Olá%20AENTECH!%20Gostaria%20de%20agendar%20um%20atendimento%20online."
+                   class="btn btn-success btn-lg rounded-pill px-4 fw-semibold shadow-sm" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp me-2" aria-hidden="true"></i>Agendar Meu Atendimento Online
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SOBRE A AENTECH ================= -->
+    <section id="sobre" class="py-5 bg-white border-top border-bottom">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <span class="text-brand-accent fw-bold text-uppercase small">
+                        <i class="fas fa-microscope me-1"></i> Excelência Científica &amp; Rigor Técnico
+                    </span>
+                    <h2 class="fw-bold mt-2 mb-3 text-brand-primary">Sobre a Aentech</h2>
+                    <p class="lead fs-6 text-dark mb-3" style="line-height: 1.8;">
+                        Na <strong>Aentech</strong>, acreditamos que a tecnologia do dia a dia merece um olhar especializado e rigoroso. Por trás de cada diagnóstico e reparo está <strong>Antenor Paulista Neto</strong>, profissional com uma trajetória científica de ponta — <strong>Mestre, Doutor e pesquisador Pós-Doutor pela Unicamp</strong> (vinculado à FEEC/Cepetro).
+                    </p>
+                    <p class="text-muted small mb-4" style="line-height: 1.8;">
+                        Essa bagagem avançada em pesquisa, modelagem molecular, caracterização de materiais e sistemas avançados de energia se traduz na bancada em uma capacidade única de investigação minuciosa de placas de circuito, componentes eletrônicos e falhas complexas de hardware. Unimos o rigor da ciência à agilidade do atendimento de varejo para entregar diagnósticos precisos, soluções duradouras e o máximo cuidado com os seus dispositivos.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="sobre.html" class="btn btn-outline-primary rounded-pill px-4 fw-semibold">
+                            <i class="fas fa-graduation-cap me-2" aria-hidden="true"></i>Conhecer a Página Sobre &amp; Depoimento
+                        </a>
+                        <a href="https://wa.me/5541984512660?text=Olá%20AENTECH!%20Gostaria%20de%20um%20diagnóstico%20especializado."
+                           class="btn btn-success rounded-pill px-4 fw-semibold" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-whatsapp me-2" aria-hidden="true"></i>Falar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm p-4 bg-brand-light rounded-4 position-relative">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="avatar-circle flex-shrink-0 bg-brand-primary text-white" style="width: 58px; height: 58px; font-size: 1.5rem;" aria-hidden="true">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 fw-bold mb-0 text-brand-primary">Antenor Paulista Neto</h3>
+                                <small class="text-muted d-block">Pós-Doutor Unicamp (FEEC / Cepetro)</small>
+                                <small class="text-muted d-block">Doutor e Mestre em C&amp;T / Química (UFABC)</small>
+                            </div>
+                        </div>
+                        <blockquote class="blockquote small text-secondary fst-italic mb-3 border-start border-3 border-success ps-3">
+                            “Essa bagagem acadêmica de ponta é o que me dá a precisão técnica necessária hoje na bancada: seja para diagnosticar uma falha eletrônica complexa, entender o comportamento térmico de um circuito ou solucionar problemas difíceis de hardware com rigor científico.”
+                        </blockquote>
+                        <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                            <span class="badge bg-brand-accent text-dark"><i class="fas fa-award me-1"></i>Responsável Técnico</span>
+                            <a href="sobre.html" class="fw-bold text-decoration-none text-brand-primary small">
+                                Ler trajetória completa <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -690,7 +809,9 @@
                     <i class="fas fa-mobile-screen-button text-brand-accent me-2" aria-hidden="true"></i>AENTECH
                 </h4>
                 <p class="small mt-3">Assistência Técnica Especializada em Celulares e Tablets.</p>
-                <p class="small mb-0"><i class="fas fa-map-marker-alt me-2 text-brand-accent" aria-hidden="true"></i>Ourinhos - SP</p>
+                <p class="small mb-1"><i class="fas fa-building me-2 text-brand-accent" aria-hidden="true"></i><strong>70.188.303 ANTENOR JOSE PAULISTA NETO</strong></p>
+                <p class="small mb-1"><i class="fas fa-id-card me-2 text-brand-accent" aria-hidden="true"></i>CNPJ: 70.188.303/0001-65</p>
+                <p class="small mb-1"><i class="fas fa-map-marker-alt me-2 text-brand-accent" aria-hidden="true"></i>Rua João Rafael, 381/383, Jardim Industrial, Ourinhos - SP, CEP 19911-291</p>
                 <p class="small mb-0"><i class="fas fa-clock me-2 text-brand-accent" aria-hidden="true"></i>Seg a Sáb — 09h às 19h</p>
             </div>
             <div class="col-md-4">
@@ -713,10 +834,13 @@
             <div class="col-md-4">
                 <h4 class="text-white fw-bold mb-3 h6">Links Rápidos</h4>
                 <ul class="list-unstyled small">
+                    <li><a href="sobre.html" class="text-white-50 text-decoration-none">Sobre a Aentech</a></li>
                     <li><a href="#servicos" class="text-white-50 text-decoration-none">Serviços</a></li>
                     <li><a href="#como-funciona" class="text-white-50 text-decoration-none">Como Funciona</a></li>
-                    <li><a href="#faq" class="text-white-50 text-decoration-none">FAQ</a></li>
+                    <li><a href="consultar-os.html" class="text-white-50 text-decoration-none">Consultar OS</a></li>
                     <li><a href="#depoimentos" class="text-white-50 text-decoration-none">Depoimentos</a></li>
+                    <li><a href="#faq" class="text-white-50 text-decoration-none">FAQ</a></li>
+                    <li><a href="admin.html" class="text-white-50 text-decoration-none">Área Técnica (Login)</a></li>
                 </ul>
             </div>
         </div>
@@ -731,8 +855,8 @@
 
         <hr class="border-secondary my-4">
         <div class="d-flex flex-wrap justify-content-between small">
-            <span>© <span id="currentYear">2026</span> AENTECH — Todos os direitos reservados.</span>
-            <span>Ourinhos - SP • Atendimento Rápido e Garantia</span>
+            <span>© <span id="currentYear">2026</span> AENTECH • Razão Social: 70.188.303 ANTENOR JOSE PAULISTA NETO • CNPJ: 70.188.303/0001-65</span>
+            <span>Rua João Rafael, 381/383 — Ourinhos - SP • CEP 19911-291</span>
         </div>
     </div>
 </footer>

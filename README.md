@@ -14,8 +14,15 @@ Aplicação web estática em **HTML5**, **Tailwind CSS**, **Bootstrap 5** e **Ja
 - **Assistência Técnica AENTECH (`/aentech/`):**
   - Subdomínio/caminho dedicado em `https://fazhoje.com/aentech/`.
   - Página completa de assistência técnica de celulares e tablets em Ourinhos - SP.
-  - Barra de navegação com link direto de retorno para `FazHoje.com`.
+  - **Página Dedicada "Sobre a Aentech" (`/aentech/sobre.html`):** Apresenta o rigor científico e trajetória acadêmica de ponta de **Antenor Paulista Neto** — Mestre, Doutor (UFABC) e pesquisador Pós-Doutor pela Unicamp (FEEC/Cepetro).
+  - **Consulta Pública de OS (`/aentech/consultar-os.html`):** Rastreamento de status de reparo em tempo real sem necessidade de login.
+  - **Painel Administrativo (`/aentech/admin.html`) & Emissão de OS (`/aentech/ordem-de-servico.html`).**
+  - Barra de navegação unificada com links cruzados entre Início, Serviços, Sobre, Consultar OS e FazHoje.com.
   - Diagnóstico em 1h, tabela de serviços, depoimentos e botão WhatsApp de orçamento rápido.
+  - **Dados Oficiais do CCMEI (Rodapé e Documentos):**
+    - **Razão Social:** 70.188.303 ANTENOR JOSE PAULISTA NETO
+    - **CNPJ:** 70.188.303/0001-65
+    - **Endereço:** Rua João Rafael, 381/383, Jardim Industrial, Ourinhos - SP, CEP 19911-291
 - **Redirecionamento SEO (`/aentec/`):**
   - Mantido redirecionamento 301/meta-refresh para manter compatibilidade e não quebrar links antigos ou indexações prévias.
 
@@ -44,7 +51,11 @@ Aplicação web estática em **HTML5**, **Tailwind CSS**, **Bootstrap 5** e **Ja
 │   └── workflows/
 │       └── pages.yml       # Deploy automatizado no GitHub Pages
 ├── aentech/
-│   ├── index.html          # Subdomínio da assistência técnica AENTECH (com link para FazHoje)
+│   ├── index.html          # Subdomínio da assistência técnica AENTECH (com link para FazHoje e Sobre)
+│   ├── sobre.html          # Página dedicada com trajetória acadêmica (Unicamp/UFABC) e depoimento
+│   ├── consultar-os.html   # Consulta pública de status de OS com timeline em 5 etapas
+│   ├── admin.html          # Painel administrativo com autenticação JWT e gestão de OS
+│   ├── ordem-de-servico.html # Emissão e impressão A4 oficial de Ordens de Serviço
 │   └── site.webmanifest    # Manifest PWA da AENTECH
 ├── aentec/
 │   └── index.html          # Redirecionamento amigável para /aentech/

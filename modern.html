@@ -65,6 +65,8 @@
     "publisher": {
       "@type": "Organization",
       "name": "FazHoje",
+      "legalName": "70.188.303 ANTENOR JOSE PAULISTA NETO",
+      "taxID": "70.188.303/0001-65",
       "logo": "https://fazhoje.com/static/og-brand.png"
     },
     "hasPart": [
@@ -72,6 +74,11 @@
         "@type": "WebPage",
         "name": "AENTECH - Assistência Técnica Especializada",
         "url": "https://fazhoje.com/aentech/"
+      },
+      {
+        "@type": "AboutPage",
+        "name": "Sobre a AENTECH - Rigor Científico e Engenharia",
+        "url": "https://fazhoje.com/aentech/sobre.html"
       }
     ]
   }
@@ -142,6 +149,8 @@
       <nav class="hidden md:flex items-center space-x-8 font-medium">
         <a href="#" class="text-gray-700 hover:text-blue-600 transition">Início</a>
         <a href="./aentech/" class="text-gray-700 hover:text-blue-600 transition">AENTECH</a>
+        <a href="./aentech/sobre.html" class="text-gray-700 hover:text-blue-600 transition">Sobre</a>
+        <a href="#como-funciona" class="text-gray-700 hover:text-blue-600 transition">Como Funciona</a>
         <a href="#contact" class="text-gray-700 hover:text-blue-600 transition">Contato</a>
         <a href="./aentech/" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition shadow-sm">
           Acessar AENTECH
@@ -166,6 +175,8 @@
   <div id="mobile-menu" class="md:hidden hidden fixed top-[65px] left-0 right-0 bg-white border-b border-gray-200 px-6 py-6 z-50 slide-down shadow-xl space-y-4 font-medium">
     <a href="#" class="block py-2 text-gray-700 hover:text-blue-600" onclick="toggleMenu()">Início</a>
     <a href="./aentech/" class="block py-2 text-gray-700 hover:text-blue-600" onclick="toggleMenu()">AENTECH</a>
+    <a href="./aentech/sobre.html" class="block py-2 text-gray-700 hover:text-blue-600" onclick="toggleMenu()">Sobre a Aentech</a>
+    <a href="#como-funciona" class="block py-2 text-gray-700 hover:text-blue-600" onclick="toggleMenu()">Como Funciona</a>
     <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600" onclick="toggleMenu()">Contato</a>
     <a href="./aentech/" class="block text-center bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition" onclick="toggleMenu()">
       Acessar AENTECH
@@ -288,6 +299,105 @@
             <span>Orçamento no WhatsApp</span>
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como Funciona Section -->
+  <section id="como-funciona" class="bg-gray-100 py-20 border-y border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+          Processo Simples &amp; Ágil
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
+          Como Funciona o Atendimento
+        </h2>
+        <p class="text-base sm:text-lg text-gray-600 mb-6">
+          Em 4 passos simples você tem seu celular ou tablet consertado com agilidade e garantia.
+        </p>
+
+        <!-- Fluxo Visual Resumido -->
+        <div class="inline-flex flex-wrap items-center justify-center gap-2 bg-white px-4 py-2.5 rounded-full border border-gray-200 shadow-sm text-xs sm:text-sm font-semibold text-gray-700">
+          <span class="text-green-600 font-bold">1. Você agenda online</span>
+          <span class="text-blue-500 font-bold">➔</span>
+          <span class="text-blue-600 font-bold">2. Nós retiramos o aparelho</span>
+          <span class="text-blue-500 font-bold">➔</span>
+          <span class="text-amber-600 font-bold">3. Fazemos o orçamento e conserto</span>
+          <span class="text-blue-500 font-bold">➔</span>
+          <span class="text-green-600 font-bold">4. Entregamos de volta</span>
+        </div>
+      </div>
+
+      <!-- Grid dos 4 Passos -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Passo 1 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-3 right-4 text-3xl font-black text-gray-100 select-none">01</div>
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center text-xl font-bold mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+            <span class="inline-block bg-green-100 text-green-800 text-[11px] font-bold px-2.5 py-0.5 rounded mb-2">Passo 1</span>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Você Agenda Online</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Fale conosco pelo WhatsApp ou formulário online, informe o modelo do dispositivo e descreva o defeito para agendar seu atendimento com prioridade.
+            </p>
+          </div>
+        </div>
+
+        <!-- Passo 2 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-3 right-4 text-3xl font-black text-gray-100 select-none">02</div>
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>
+            </div>
+            <span class="inline-block bg-blue-100 text-blue-800 text-[11px] font-bold px-2.5 py-0.5 rounded mb-2">Passo 2</span>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Nós Retiramos o Aparelho</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Coletamos seu celular ou tablet no seu endereço com comodidade e segurança ou você pode deixá-lo diretamente em nossa bancada em Ourinhos - SP.
+            </p>
+          </div>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-3 right-4 text-3xl font-black text-gray-100 select-none">03</div>
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <span class="inline-block bg-amber-100 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded mb-2">Passo 3</span>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Orçamento e Conserto</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Fazemos a perícia técnica e apresentamos o orçamento transparente sem custos ocultos. Com sua autorização, executamos o reparo de alta precisão.
+            </p>
+          </div>
+        </div>
+
+        <!-- Passo 4 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-3 right-4 text-3xl font-black text-gray-100 select-none">04</div>
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl font-bold mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <span class="inline-block bg-teal-100 text-teal-800 text-[11px] font-bold px-2.5 py-0.5 rounded mb-2">Passo 4</span>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Entregamos de Volta</h3>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Aparelho 100% testado e aprovado em checklist completo entregue de volta para você com garantia de 90 dias por escrito.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão Central de Ação -->
+      <div class="text-center mt-10">
+        <a href="https://wa.me/5541984512660?text=Olá%20AENTECH!%20Quero%20agendar%20um%20conserto%20online." target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3.5 rounded-xl shadow-md hover:shadow-lg transition">
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+          <span>Agendar Meu Reparo Online</span>
+        </a>
       </div>
     </div>
   </section>
@@ -439,13 +549,18 @@
       <div class="text-center md:text-left">
         <span class="text-xl font-extrabold text-blue-600 tracking-tight">FazHoje</span>
         <p class="text-xs text-gray-500 mt-1">Inovação prática e suporte técnico especializado AENTECH.</p>
+        <p class="text-xs text-gray-500 mt-0.5"><strong>70.188.303 ANTENOR JOSE PAULISTA NETO</strong> • CNPJ: 70.188.303/0001-65</p>
+        <p class="text-xs text-gray-500">Rua João Rafael, 381/383, Jardim Industrial, Ourinhos - SP, CEP 19911-291</p>
       </div>
       <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-600 font-medium">
         <a href="./aentech/" class="hover:text-blue-600 transition">AENTECH</a>
+        <a href="./aentech/sobre.html" class="hover:text-blue-600 transition">Sobre a Aentech</a>
+        <a href="#como-funciona" class="hover:text-blue-600 transition">Como Funciona</a>
+        <a href="./aentech/consultar-os.html" class="hover:text-blue-600 transition">Consultar OS</a>
         <a href="#contact" class="hover:text-blue-600 transition">Contato</a>
       </div>
       <div class="text-xs text-gray-400 text-center md:text-right">
-        &copy; 2026 FazHoje. Todos os direitos reservados.
+        &copy; 2026 FazHoje / AENTECH. Todos os direitos reservados.
       </div>
     </div>
   </footer>
